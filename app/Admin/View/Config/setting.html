@@ -1,0 +1,663 @@
+<!DOCTYPE html>
+<html lang="en">
+	<head>
+		<meta charset="utf-8" />
+		<title>{$web_set['title']}</title>
+		<meta name="keywords" content="{$web_set['keywords']}" />
+		<meta name="description" content="{$web_set['description']}" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+		<!-- basic styles -->
+
+		<link href="public/Admin/assets/css/bootstrap.min.css" rel="stylesheet" />
+		<link rel="stylesheet" href="public/Admin/assets/css/font-awesome.min.css" />
+
+		<!--[if IE 7]>
+		  <link rel="stylesheet" href="public/Admin/assets/css/font-awesome-ie7.min.css" />
+		<![endif]-->
+
+		<!-- page specific plugin styles -->
+
+		<link rel="stylesheet" href="public/Admin/assets/css/jquery-ui-1.10.3.custom.min.css" />
+		<link rel="stylesheet" href="public/Admin/assets/css/chosen.css" />
+		<link rel="stylesheet" href="public/Admin/assets/css/datepicker.css" />
+		<link rel="stylesheet" href="public/Admin/assets/css/bootstrap-timepicker.css" />
+		<link rel="stylesheet" href="public/Admin/assets/css/daterangepicker.css" />
+		<link rel="stylesheet" href="public/Admin/assets/css/colorpicker.css" />
+
+		<!-- fonts -->
+
+		<link rel="stylesheet" type="text/css" href="public/Admin/assets/css/google_font_css.css">
+
+		<!-- ace styles -->
+
+		<link rel="stylesheet" href="public/Admin/assets/css/ace.min.css" />
+		<link rel="stylesheet" href="public/Admin/assets/css/ace-rtl.min.css" />
+		<link rel="stylesheet" href="public/Admin/assets/css/ace-skins.min.css" />
+
+		<!--[if lte IE 8]>
+		  <link rel="stylesheet" href="public/Admin/assets/css/ace-ie.min.css" />
+		<![endif]-->
+
+		<!-- inline styles related to this page -->
+
+		<!-- ace settings handler -->
+
+		<link rel="stylesheet" href="public/Admin/layui-v1.0.4/layui/css/layui.css">
+
+		<script src="public/Admin/assets/js/ace-extra.min.js"></script>
+
+
+		
+
+		<!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+
+		<!--[if lt IE 9]>
+		<script src="public/Admin/assets/js/html5shiv.js"></script>
+		<script src="public/Admin/assets/js/respond.min.js"></script>
+		<![endif]-->
+
+		<script src="public/Admin/assets/js/jquery.min.js"></script>
+
+		<script src="public/Admin/layui-v1.0.4/layui/layui.js"></script>
+		
+	</head>
+
+	<body>
+		<div class="navbar navbar-default" id="navbar">
+			<script type="text/javascript">
+				try{ace.settings.check('navbar' , 'fixed')}catch(e){}
+			</script>
+
+						
+
+						<div class="navbar-container" id="navbar-container">
+							<div class="navbar-header pull-left">
+								<a href="#" class="navbar-brand" style="background:url('__UPLOAD__/{$web_set['logo']}') left 5px;background-size:35px 35px;background-repeat:no-repeat;">
+									<small style="margin-left:34px;">
+										<!-- <i class="icon-leaf"></i> -->
+										{$web_set['title']}
+									</small>
+								</a><!-- /.brand -->
+							</div><!-- /.navbar-header -->
+
+							<div class="navbar-header pull-right" role="navigation">
+								<ul class="nav ace-nav">
+									<li class="grey">
+										<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+											<i class="icon-tasks"></i>
+											<span class="badge badge-grey">4</span>
+										</a>
+									</li>
+
+									<li class="purple">
+										<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+											<i class="icon-bell-alt icon-animated-bell"></i>
+											<span class="badge badge-important">8</span>
+										</a>
+									</li>
+
+									<li class="green">
+										<a data-toggle="dropdown" class="dropdown-toggle" href="#">
+											<i class="icon-envelope icon-animated-vertical"></i>
+											<span class="badge badge-success">5</span>
+										</a>
+									</li>
+
+									<li class="light-blue">
+										<a data-toggle="dropdown" href="#" class="dropdown-toggle">
+											<if condition="$user['gid'] eq 4 || $user['gid'] == 3">
+												<img class="nav-user-photo" src="__UPLOAD__/{$user.logo}" alt="Jason's Photo" />
+												<span class="user-info">
+													<small>{$user.school},</small>
+													{$user.username}
+												</span>
+											<else/>
+												<img class="nav-user-photo" src="public/Admin/assets/avatars/user.jpg" alt="Jason's Photo" />
+												<span class="user-info">
+													<small>{$user.group},</small>
+													{$user.username}
+												</span>
+											</if>
+											<i class="icon-caret-down"></i>
+										</a>
+										<ul class="user-menu pull-right dropdown-menu dropdown-yellow dropdown-caret dropdown-close">
+											<li>
+												<a href="{:U('Admin/User/resetPasswordMyself')}">
+													<i class="icon-cog"></i>
+													修改密码
+												</a>
+											</li>
+											<li class="divider"></li>
+											<li>
+												<a href="{:U('Admin/Login/logout')}">
+													<i class="icon-off"></i>
+													退出
+												</a>
+											</li>
+										</ul>
+
+									</li>
+
+								</ul><!-- /.ace-nav -->
+
+							</div><!-- /.navbar-header -->
+
+						</div><!-- /.container -->
+
+		</div>
+
+		<div class="main-container" id="main-container">
+			<script type="text/javascript">
+				try{ace.settings.check('main-container' , 'fixed')}catch(e){}
+			</script>
+
+			<div class="main-container-inner">
+				<a class="menu-toggler" id="menu-toggler" href="#">
+					<span class="menu-text"></span>
+				</a>
+
+				<div class="sidebar" id="sidebar">
+					<script type="text/javascript">
+					  try{ace.settings.check('sidebar' , 'fixed')}catch(e){}
+					</script>
+
+					  <div class="sidebar-shortcuts" id="sidebar-shortcuts">
+					    <div class="sidebar-shortcuts-large" id="sidebar-shortcuts-large">
+					      <button class="btn btn-success">
+					        <i class="icon-signal"></i>
+					      </button>
+					      <button class="btn btn-info">
+					        <i class="icon-pencil"></i>
+					      </button>
+					      <button class="btn btn-warning">
+					        <i class="icon-group"></i>
+					      </button>
+					      <button class="btn btn-danger">
+					        <i class="icon-cogs"></i>
+					      </button>
+					    </div>
+
+					    <div class="sidebar-shortcuts-mini" id="sidebar-shortcuts-mini">
+					      <span class="btn btn-success"></span>
+					      <span class="btn btn-info"></span>
+					      <span class="btn btn-warning"></span>
+					      <span class="btn btn-danger"></span>
+					    </div>
+
+					  </div><!-- #sidebar-shortcuts -->
+
+
+					  <ul class="nav nav-list">
+
+					    <li>
+					      <a href="#" class="dropdown-toggle">
+					        <i class="icon-film"></i>
+					        <span class="menu-text"> 网站设置 </span>
+					        <b class="arrow icon-angle-down"></b>
+					      </a>
+
+					      <ul class="submenu">
+					        <li>
+					          <a href="{:U('Admin/Config/setting')}" page="Admin/Config/setting" title="setting" data-title="网站设置">
+					            <i class="icon-double-angle-right"></i>
+					            网站设置
+					          </a>
+					        </li>
+					      </ul>
+					    </li>
+
+
+					  </ul><!-- /.nav-list -->
+
+
+					  <div class="sidebar-collapse" id="sidebar-collapse">
+					    <i class="icon-double-angle-left" data-icon1="icon-double-angle-left" data-icon2="icon-double-angle-right"></i>
+					  </div>
+
+					  <script type="text/javascript">
+					    try{ace.settings.check('sidebar' , 'collapsed')}catch(e){}
+					  </script>
+
+
+				</div>
+
+				<div class="main-content">
+					<div class="breadcrumbs" id="breadcrumbs">
+						<script type="text/javascript">
+							try{ace.settings.check('breadcrumbs' , 'fixed')}catch(e){}
+						</script>
+
+						<ul class="breadcrumb">
+							
+							<li>
+							  <i class="icon-home home-icon"></i>
+							  <a href="#">Home</a>
+							</li>
+							<li>
+							  <a href="#" id="_nav_1"></a>
+							</li>
+							<li class="active" id="_nav_2"></li>
+
+							
+						</ul><!-- .breadcrumb -->
+
+						<div class="nav-search" id="nav-search">
+							<form class="form-search">
+								<span class="input-icon">
+									<input type="text" placeholder="Search ..." class="nav-search-input" id="nav-search-input" autocomplete="off" />
+									<i class="icon-search nav-search-icon"></i>
+								</span>
+							</form>
+						</div><!-- #nav-search -->
+					</div>
+
+					<div class="page-content">
+						<div class="page-header">
+							<h1>
+								网站设置
+							</h1>
+						</div><!-- /.page-header -->
+
+						<div class="row">
+							<div class="col-xs-12">
+								
+								<div class="layui-tab">
+								  <ul class="layui-tab-title">
+								    <li class="layui-this">网站设置</li>
+								    <li>图片样式</li>
+								    <li>公司信息</li>
+								  </ul>
+								  <div class="layui-tab-content">
+								    <div class="layui-tab-item layui-show">
+								    	<form action="{:U('Admin/Config/setting')}" class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+									      	<table class="layui-table">
+									          <colgroup>
+									            <col width="150">
+									            <col>
+									            <col>
+									          </colgroup>
+									          
+									          <tbody>
+									            <tr>
+									              <td>服务器IP</td>
+									              <td>
+									              	<input type="text" id="form-field-1" name="ip" value="{$config['ip']}" placeholder="ip" class="col-xs-10 col-sm-5" />
+									              </td>
+									              <td></td>
+									            </tr>
+
+									            <tr>
+									              <td>内网网址</td>
+									              <td>
+									              	<input type="text" id="form-field-1" name="in_url" value="{$config['in_url']}" placeholder="in_url" class="col-xs-10 col-sm-5" />
+									              </td>
+									              <td></td>
+									            </tr>
+
+									            <tr>
+									              <td>上传图片</td>
+									              <td>
+									              	<input type="text" id="form-field-1" name="img_host" value="{$config['img_host']}" placeholder="img_host" class="col-xs-10 col-sm-5" />
+									              </td>
+									              <td></td>
+									            </tr>
+
+									            <tr>
+									              <td>站点标题</td>
+									              <td>
+									              	<input type="text" id="form-field-1" name="title" value="{$config['title']}" placeholder="title" class="col-xs-10 col-sm-5" />
+									              </td>
+									              <td></td>
+									            </tr>
+
+									            <tr>
+									              <td>关键词</td>
+									              <td>
+									              	<input type="text" id="form-field-1" name="keywords" value="{$config['keywords']}" placeholder="keywords" class="col-xs-10 col-sm-5" />
+									              </td>
+									              <td></td>
+									            </tr>
+
+									            <tr>
+									              <td>站点描述</td>
+									              <td>
+									              	<input type="text" id="form-field-1" name="description" value="{$config['description']}" placeholder="description" class="col-xs-10 col-sm-5" />
+									              </td>
+									              <td></td>
+									            </tr>
+
+									            <tr>
+									              <td>网站标签</td>
+									              <td>
+									              	<input type="text" name="tags" id="form-field-tags" value="{$config['tags']}" placeholder="Enter tags ..." />
+									              </td>
+									              <td></td>
+									            </tr>
+
+									            <tr>
+									              <td>网站Logo</td>
+									              <td>
+									              	<input type="file" name="logo" id="id-input-file-2" />
+													<notempty name="config['logo']">
+														<img width="100px" src="__UPLOAD__/{$config['logo']}"/>
+													</notempty>
+									              </td>
+									              <td></td>
+									            </tr>
+									          </tbody>
+
+									          <tfoot>
+									            <tr>
+									              <td colspan="3">
+									              		<input type="hidden" value="1" name="id">
+						              					<button class="btn btn-info" type="submit">
+					              		              		<i class="icon-ok bigger-110"></i>
+					              		              		保存
+					              		              	</button>
+					              		              	<button class="btn" type="reset">
+					              		              		<i class="icon-undo bigger-110"></i>
+					              		              		重置
+					              		              	</button>
+									              </td>
+									            </tr> 
+									          </tfoot>
+									        </table>
+								        </form>
+								    </div>
+								    <div class="layui-tab-item">
+								    	<form action="{:U('Admin/Config/setting')}" class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+									      	<table class="layui-table">
+									          <colgroup>
+									            <col width="150">
+									            <col>
+									            <col>
+									          </colgroup>
+									          
+									          <tbody>
+
+									          	<tr>
+									              <td>oss外网域名</td>
+									              <td>
+									              	<input type="text" id="form-field-1" name="oss_url" value="{$config['oss_url']}" placeholder="oss_url" class="col-xs-10 col-sm-5" />
+									              </td>
+									              <td></td>
+									            </tr>
+
+									            <tr>
+									              <td>oss_style_50x50</td>
+									              <td>
+									              	<div class="form-group">
+									              	    <div class="input-group">
+									              	      <div class="input-group-addon">?x-oss-process=</div>
+									              	      <input type="text" value="{$config['oss_style_50x50']}" name="{$config['oss_style_50x50']}" class="col-xs-10 col-sm-5">
+									              	    </div>
+									              	</div>
+									              </td>
+									              <td></td>
+									            </tr>
+
+									            <tr>
+									              <td>oss_style_150x150</td>
+									              <td>
+									              	<div class="form-group">
+									              	    <div class="input-group">
+									              	      <div class="input-group-addon">?x-oss-process=</div>
+									              	      <input type="text" value="{$config['oss_style_150x150']}" name="{$config['oss_style_150x150']}" class="col-xs-10 col-sm-5">
+									              	    </div>
+									              	</div>
+									              </td>
+									              <td></td>
+									            </tr>
+
+									            
+									          </tbody>
+
+									          <tfoot>
+									            <tr>
+									              <td colspan="3">
+									              		<input type="hidden" value="1" name="id">
+						              					<button class="btn btn-info" type="submit">
+					              		              		<i class="icon-ok bigger-110"></i>
+					              		              		保存
+					              		              	</button>
+					              		              	<button class="btn" type="reset">
+					              		              		<i class="icon-undo bigger-110"></i>
+					              		              		重置
+					              		              	</button>
+									              </td>
+									            </tr> 
+									          </tfoot>
+									        </table>
+								        </form>
+								    </div>
+								    <div class="layui-tab-item">
+								    	<form action="{:U('Admin/Config/setting')}" class="form-horizontal" role="form" method="post" enctype="multipart/form-data">
+									      	<table class="layui-table">
+									          <colgroup>
+									            <col width="150">
+									            <col>
+									            <col>
+									          </colgroup>
+									          
+									          <tbody>
+									          	<tr>
+									              <td>客服电话</td>
+									              <td>
+									              	<input type="text" id="form-field-1" name="phone" value="{$config['phone']}" placeholder="phone" class="col-xs-10 col-sm-5" />
+									              </td>
+									              <td></td>
+									            </tr>
+
+									            <tr>
+									              <td>企业QQ</td>
+									              <td>
+									              	<input type="text" id="form-field-1" name="qq" value="{$config['qq']}" placeholder="qq" class="col-xs-10 col-sm-5" />
+									              </td>
+									              <td></td>
+									            </tr>
+
+									            <tr>
+									              <td>电子邮箱</td>
+									              <td>
+									              	<input type="text" id="form-field-1" name="email" value="{$config['email']}" placeholder="email" class="col-xs-10 col-sm-5" />
+									              </td>
+									              <td></td>
+									            </tr>
+
+									            <tr>
+									              <td>地址</td>
+									              <td>
+									              	<input type="text" id="form-field-1" name="address" value="{$config['address']}" placeholder="address" class="col-xs-10 col-sm-5" />
+									              </td>
+									              <td></td>
+									            </tr>
+									          </tbody>
+
+									          <tfoot>
+									            <tr>
+									              <td colspan="3">
+									              		<input type="hidden" value="1" name="id">
+						              					<button class="btn btn-info" type="submit">
+					              		              		<i class="icon-ok bigger-110"></i>
+					              		              		保存
+					              		              	</button>
+					              		              	<button class="btn" type="reset">
+					              		              		<i class="icon-undo bigger-110"></i>
+					              		              		重置
+					              		              	</button>
+									              </td>
+									            </tr> 
+									          </tfoot>
+									        </table>
+								        </form>
+								    </div>
+								  </div>
+								</div>
+								
+
+
+								<!-- PAGE CONTENT BEGINS -->
+
+								
+							</div><!-- /.col -->
+						</div><!-- /.row -->
+					</div><!-- /.page-content -->
+				</div><!-- /.main-content -->
+
+			</div><!-- /.main-container-inner -->
+
+			<a href="#" id="btn-scroll-up" class="btn-scroll-up btn btn-sm btn-inverse">
+				<i class="icon-double-angle-up icon-only bigger-110"></i>
+			</a>
+		</div><!-- /.main-container -->
+		<style type="text/css">
+			/*.auth_heightlight{background: red;}*/
+			.footer {
+				width: 100%;
+				height: 65px;
+				overflow: hidden;
+			/*	position: absolute;
+				bottom: 0px;*/
+			}
+			.footer .footer-inner {
+			    text-align: center;
+				height: 55px;
+			    z-index: auto;
+			    left: 0;
+			    right: 0;
+			    bottom: 0;
+			}
+			.footer .footer-inner .footer-content {
+			    position: absolute;
+			    bottom: 4px;
+			    padding: 8px 0px;
+			    line-height: 36px;
+			    border-top: 3px double #E5E5E5;
+			    width: 100%;
+			    overflow: hidden;
+			    background: white;
+			}
+			.bigger-120 {
+			    font-size: 120%!important;
+			}
+			.blue {
+			    color: #478FCA!important;
+			}
+			.bolder {
+			    font-weight: bolder;
+			}
+		</style>
+
+		<div class="footer">
+
+		  <div class="footer-inner row">
+
+		    <div class="footer-content col-xs-12">
+
+		      <span class="bigger-120">
+
+		        <span class="blue bolder">&copy; 2016</span>
+		          ELCO(TIANJIN)ELECTRONICS CO.,LTD.
+
+		      </span>
+
+
+
+		      &nbsp; &nbsp;
+
+		      <span class="action-buttons">
+
+		        <a href="#">
+
+		          <i class="ace-icon fa fa-twitter-square light-blue bigger-150"></i>
+
+		        </a>
+
+
+
+		        <a href="#">
+
+		          <i class="ace-icon fa fa-facebook-square text-primary bigger-150"></i>
+
+		        </a>
+
+
+
+		        <a href="#">
+
+		          <i class="ace-icon fa fa-rss-square orange bigger-150"></i>
+
+		        </a>
+
+		      </span>
+
+		    </div>
+
+		  </div>
+
+		</div>
+
+
+
+
+
+		<!-- basic scripts -->
+
+		<!--[if !IE]> -->
+
+		
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script src="http://ajax.googleapis.com/ajax/libs/jquery/1.10.2/jquery.min.js"></script>
+<![endif]-->
+
+		<!--[if !IE]> -->
+
+		<script type="text/javascript">
+			window.jQuery || document.write("<script src='assets/js/jquery-2.0.3.min.js'>"+"<"+"/script>");
+		</script>
+
+		<!-- <![endif]-->
+
+		<!--[if IE]>
+<script type="text/javascript">
+ window.jQuery || document.write("<script src='assets/js/jquery-1.10.2.min.js'>"+"<"+"/script>");
+</script>
+<![endif]-->
+
+		<script type="text/javascript">
+			if("ontouchend" in document) document.write("<script src='assets/js/jquery.mobile.custom.min.js'>"+"<"+"/script>");
+		</script>
+		<script src="public/Admin/assets/js/bootstrap.min.js"></script>
+		<script src="public/Admin/assets/js/typeahead-bs2.min.js"></script>
+
+		<!-- page specific plugin scripts -->
+
+		<!--[if lte IE 8]>
+		  <script src="public/Admin/assets/js/excanvas.min.js"></script>
+		<![endif]-->
+
+		<script src="public/Admin/assets/js/jquery-ui-1.10.3.custom.min.js"></script>
+		<script src="public/Admin/assets/js/jquery.ui.touch-punch.min.js"></script>
+		<script src="public/Admin/assets/js/chosen.jquery.min.js"></script>
+		<script src="public/Admin/assets/js/fuelux/fuelux.spinner.min.js"></script>
+		<script src="public/Admin/assets/js/date-time/bootstrap-datepicker.min.js"></script>
+		<script src="public/Admin/assets/js/date-time/bootstrap-timepicker.min.js"></script>
+		<script src="public/Admin/assets/js/date-time/moment.min.js"></script>
+		<script src="public/Admin/assets/js/date-time/daterangepicker.min.js"></script>
+		<script src="public/Admin/assets/js/bootstrap-colorpicker.min.js"></script>
+		<script src="public/Admin/assets/js/jquery.knob.min.js"></script>
+		<script src="public/Admin/assets/js/jquery.autosize.min.js"></script>
+		<script src="public/Admin/assets/js/jquery.inputlimiter.1.3.1.min.js"></script>
+		<script src="public/Admin/assets/js/jquery.maskedinput.min.js"></script>
+		<script src="public/Admin/assets/js/bootstrap-tag.min.js"></script>
+
+		<!-- ace scripts -->
+
+		<script src="public/Admin/assets/js/ace-elements.min.js"></script>
+		<script src="public/Admin/assets/js/ace.min.js"></script>
+	</body>
+</html>
